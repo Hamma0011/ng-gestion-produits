@@ -1,0 +1,45 @@
+<div>
+  
+  <!-- <app-entete></app-entete> -->
+<div  *ngIf="etatedit==true">
+  <h1>Fiche produit</h1>
+    <tr>
+    <th> Id  : </th> <th> <input type="text"[(ngModel)]="produitSelectionne.id" [disabled]="true"> </th>
+    </tr>
+    <tr>
+    <th> Code  : </th> <th> <input type="text"[(ngModel)]="produitSelectionne.code" > </th>
+    </tr>
+    <tr>
+    <th> Designation  : </th> <th> <input type="text"[(ngModel)]="produitSelectionne.designation"  > </th>
+    </tr>
+    <tr>
+    <th> Prix  : </th> <th> <input type="text"[(ngModel)]="produitSelectionne.prix"  > </th>
+    </tr>
+    <tr>
+    <button (click)="valider()">Valider</button>
+    </tr>
+
+
+</div>
+<h1> Liste des produits </h1>
+
+  <table>
+  <thead>
+  <tr>
+  <th> Id </th> <th> Code </th> <th> Designation </th> <th> Prix </th>  <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor = "let p of produits">
+  <td> {{p.id}}</td>
+  <td> {{p.code}}</td>
+  <td> {{p.designation}}</td>
+  <td> {{p.prix}}</td>
+  <td> <button (click)="EditProduit(p)">Editer</button> </td>
+  <td> <button (click)="SuppProduit(p.id)">Supprimer</button> </td>
+
+  </tr>
+
+  </tbody>
+  </table>
+  </div>
