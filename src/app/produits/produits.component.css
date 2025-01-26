@@ -1,0 +1,9 @@
+.custom-delete-btn {
+  background-color: #A94A4A; /* Couleur personnalisée */
+  color: white; /* Texte en blanc */
+  border: none; /* Supprimer la bordure */
+}
+
+.custom-delete-btn:hover {
+  background-color: #8C3A3A; /* Couleur plus foncée au survol */
+}

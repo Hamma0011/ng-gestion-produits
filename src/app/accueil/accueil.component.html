@@ -1,1 +1,11 @@
-<p>accueil works!</p>
+<div class="matrix-container">
+  <div *ngFor="let produit of produits; let i = index" class="matrix-item">
+    <!-- Image -->
+    <img [src]="getPhotoUrl(produit.designation)" alt="{{ produit.designation }}" class="product-image" />
+    <!-- Détails du produit -->
+    <div class="product-info">
+      <h3>{{ produit.designation }}</h3>
+      <p>{{ produit.prix  }} DT </p>
+    </div>
+  </div>
+</div>

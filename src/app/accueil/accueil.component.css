@@ -1,0 +1,41 @@
+.matrix-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Répartition dynamique */
+  gap: 15px; /* Espacement entre les produits */
+  padding: 20px;
+}
+
+.matrix-item {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.matrix-item:hover {
+  transform: scale(1.05); /* Légère animation au survol */
+}
+
+.product-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.product-info {
+  padding: 10px;
+}
+
+.product-info h3 {
+  font-size: 16px;
+  margin: 10px 0 5px;
+  color: #333;
+}
+
+.product-info p {
+  font-size: 14px;
+  color: #007bff;
+}

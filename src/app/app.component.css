@@ -1,0 +1,40 @@
+/* Espacement entre les éléments */
+.navbar-nav .nav-item {
+  margin-right: 15px;
+}
+
+/* Couleurs pour le texte et les icônes inactives */
+.navbar-nav .nav-link,
+.navbar-nav .nav-link i,
+.navbar-nav .nav-link span {
+  color: white !important;
+}
+
+/* Couleur pour les éléments actifs */
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link.active i,
+.navbar-nav .nav-link.active span {
+  color: #F1895C !important;
+}
+
+/* Largeur et alignement des champs de recherche */
+.navbar input.form-control {
+  max-width: 200px;
+}
+.navbar .btn {
+  margin-right: 5px; /* Ajustez la valeur selon vos besoins */
+}
+
+/* Ajouter un padding interne à la barre si nécessaire */
+.navbar {
+  padding-right: 5px; /* Espace entre le bord droit et le contenu */
+}
+
+.navbar .btn {
+  margin-left: 5px; /* Ajustez la valeur selon vos besoins */
+}
+
+/* Ajouter un padding interne à la barre si nécessaire */
+.navbar {
+  padding-left: 10px; /* Espace entre le bord droit et le contenu */
+}

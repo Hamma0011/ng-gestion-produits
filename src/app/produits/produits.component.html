@@ -1,45 +1,151 @@
-<div>
-  
-  <!-- <app-entete></app-entete> -->
-<div  *ngIf="etatedit==true">
-  <h1>Fiche produit</h1>
+<div  class="container">
+  <form *ngIf="etatedit" #produitForm="ngForm" (ngSubmit)="validerFormulaire(produitForm)">
+    <h1>Fiche produit</h1>
     <tr>
-    <th> Id  : </th> <th> <input type="text"[(ngModel)]="produitSelectionne.id" [disabled]="true"> </th>
+      <th>Id :</th>
+      <th><input id="id" name="id" type="text" [(ngModel)]="produitCourant.id" required readonly /></th>
     </tr>
     <tr>
-    <th> Code  : </th> <th> <input type="text"[(ngModel)]="produitSelectionne.code" > </th>
+      <th>Code :</th>
+      <th><input type="text" name="code" [(ngModel)]="produitCourant.code" /></th>
     </tr>
     <tr>
-    <th> Designation  : </th> <th> <input type="text"[(ngModel)]="produitSelectionne.designation"  > </th>
+      <th>Designation :</th>
+      <th><input type="text" name="designation" [(ngModel)]="produitCourant.designation" /></th>
     </tr>
     <tr>
-    <th> Prix  : </th> <th> <input type="text"[(ngModel)]="produitSelectionne.prix"  > </th>
+      <th>Prix :</th>
+      <th><input type="number" name="prix" [(ngModel)]="produitCourant.prix" /></th>
     </tr>
     <tr>
-    <button (click)="valider()">Valider</button>
+      <th>Categorie :</th>
+      <th>
+        <select  [(ngModel)]="produitCourant.categorie" name="categorie">
+          <option *ngFor="let categorie of categories" [ngValue]="categorie">
+            {{ categorie.libelle }}
+          </option>
+        </select>
+      </th>
     </tr>
-
-
+    <tr>
+      <td [align]="'center'" colspan="2">
+        <input type="submit" value="Valider" [disabled]="!produitForm.form.valid" />
+      </td>
+    </tr>
+  </form>
 </div>
-<h1> Liste des produits </h1>
 
+<div class="container">
+  
   <table>
-  <thead>
-  <tr>
-  <th> Id </th> <th> Code </th> <th> Designation </th> <th> Prix </th>  <th>Actions</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor = "let p of produits">
-  <td> {{p.id}}</td>
-  <td> {{p.code}}</td>
-  <td> {{p.designation}}</td>
-  <td> {{p.prix}}</td>
-  <td> <button (click)="EditProduit(p)">Editer</button> </td>
-  <td> <button (click)="SuppProduit(p.id)">Supprimer</button> </td>
-
-  </tr>
-
-  </tbody>
-  </table>
+    <thead>
+        <tr>
+          <th> <label for="Id">Filtrer par Id: </label></th>
+          <th> <label for="categorieFilter">Filtrer par designation: </label></th>
+            <th>  <label for="categorieFilter">Filtrer par catégorie :</label></th>
+            <th><label for="prixMin">Prix minimum :</label></th>
+            <th><label for="prixMax">Prix maximum :</label></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td> 
+              <!-- Filtre par ID -->
+              <div class="mb-3">
+    
+                <input
+                  id="IdFilter"
+                  type="number"
+                  class="form-control"
+                  [(ngModel)]="IdFilter"
+                  (input)="filtrerProduitParId(IdFilter)"
+                  placeholder="Entrez une Id..."
+                />
+              </div>
+            </td>
+            <td>
+            <!-- Filtre par désignation -->
+  <div class="mb-3">
+    
+    <input
+      id="designationFilter"
+      type="text"
+      class="form-control"
+      [(ngModel)]="designationFiltres"
+      (input)="filtrerProduits()"
+      placeholder="Entrez une désignation..."
+    />
   </div>
+          </td>
+          <!-- Filtre par categorie -->
+            <td><div class="mb-3">
+              <select id="categorieFilter" class="form-control" [(ngModel)]="categorieFilter" (change)="filtrerProduits()">
+                <option value="">Toutes les catégories</option>
+                <option *ngFor="let categorie of categories" [value]="categorie.id">
+                  {{ categorie.libelle }}
+                </option>
+              </select>
+            </div></td>
+            <td> 
+              <!-- Filtre par intervalle de prix -->
+              <div class="mb-3">
+                <input
+                  id="prixMin"
+                  type="number"
+                  class="form-control"
+                  [(ngModel)]="prixMin"
+                  (input)="filtrerProduits()"
+                  placeholder="Prix minimum"
+                /></div>
+              </td>
+            <td><div class="mb-3">
+              <input
+                id="prixMax"
+                type="number"
+                class="form-control"
+                [(ngModel)]="prixMax"
+                (input)="filtrerProduits()"
+                placeholder="Prix maximum"
+              />
+            </div></td>
+        </tr>
+  
+    </tbody>
+</table>
+<h1>Liste des produits</h1>
+<div *ngIf="produitsFiltres.length === 0" class="alert alert-warning">
+  Aucun produit ne correspond à vos critères.
+</div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Code</th>
+        <th>Designation</th>
+        <th>Prix</th>
+        <th>Catégorie</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of produitsFiltres">
+        <td>{{ p.id }}</td>
+        <td>{{ p.code }}</td>
+        <td>{{ p.designation }}</td>
+        <td>{{ p.prix }}</td>
+        <td>{{ p.categorie?.libelle }}</td>
+        <td>
+          <button (click)="EditProduit(p)" class="btn btn-primary">
+            <i class="bi bi-pencil me-2"></i>Editer
+          </button>
+        </td>
+        <td>
+          <button (click)="supprimerProduit(p)" class="btn btn-danger">
+            <i class="bi bi-trash"></i>Supprimer
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

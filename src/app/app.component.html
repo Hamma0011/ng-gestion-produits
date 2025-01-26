@@ -1,27 +1,44 @@
-<div>
-  <nav>
-    <table>
-      <tr>
-        <td *ngFor="let action of actions">
-          <button (click)="setActionCourante (action) "
-          [style.backgroundColor]="action==actionCourante ? 'yellow':'red'"
-          
-          [routerLink]="action.route">
-            {{ action.titre }}
-          </button>
+<div class="container">
+  <!-- Barre de navigation -->
+  <nav class="navbar navbar-expand-lg" style="background-color: #516079;">
+    <a class="navbar-brand text-white" >Gestion Produit</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon text-white"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav d-flex w-100">
+        <!-- Groupe à gauche (trois éléments) -->
+        <li class="nav-item" *ngFor="let action of actions">
+          <a class="nav-link"
+             [routerLink]="action.route"
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{ exact: true }"
+             [ngClass]="{'active-menu-item': action === actionCourante, 'text-white': true}" 
+             (click)="setActionCourante(action)">
+            <i [class]="getIconClass(action)" class="text-white"></i> 
+            <span [ngClass]="{'text-white': true}">{{ action.titre }}</span>
+          </a>
+        </li>
+      </ul>
 
-
-
-
-
-        </td>
-      </tr>
-    </table>
-    <div>  
-    
-    
-    </div>
+  <!-- Groupe à droite (formulaire de recherche et bouton) -->
+<div class="d-flex ml-auto align-items-center" *ngIf="actionCourante?.titre !== 'Accueil'">
+  <!-- Liaison de l'input avec la variable searchQuery -->
+  <input class="form-control mr-2" 
+         type="search" 
+         placeholder="ID ou Code" 
+         aria-label="Search" 
+         [(ngModel)]="searchQuery"> <!-- Utilisation de ngModel pour la liaison -->
   
-  </nav>
+  <!-- Appel de la méthode rechercherProduit lors du clic -->
+  <button class="btn btn-outline-light" 
+          type="submit" 
+          >Recherche</button> 
 </div>
-<router-outlet></router-outlet>
+</div>
+  </nav>
+
+  <!-- Contenu dynamique chargé ici -->
+  <router-outlet></router-outlet>
+  
+</div>
