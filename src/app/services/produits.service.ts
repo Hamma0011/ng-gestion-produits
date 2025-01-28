@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Categorie, Produit } from '../model/produit';
+import { Produit } from '../model/produit';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -32,6 +32,8 @@ export class ProduitsService {
     return this.http.put(this.urlHote + idP, nouveau);
   }
 
+
+  /// hétouma 2 mté3 filtrage kén t7eb n7ihom zéydinn
   // Rechercher un produit par ID
   rechercherProduitParId(idP: number): Observable<Produit> {
     return this.http.get<Produit>(this.urlHote + idP);

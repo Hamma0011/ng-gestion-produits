@@ -33,8 +33,10 @@ export class ProduitsComponent implements OnInit {
     console.log("Initialisation du composant:.....");
     this.consulterProduits();
     this.chargerCategories(); // Charger les catégories
-    
   }
+
+
+
 
   // Charger la liste des produits
   consulterProduits(): void {
@@ -86,6 +88,7 @@ export class ProduitsComponent implements OnInit {
   
     console.log('Produits filtrés :', this.produitsFiltres);
   }
+  
   filtrerProduitParId(idP: number | null): void {
     if (idP !== null && !isNaN(idP)) { // Vérifie que l'ID est défini et valide
       this.produitsService.rechercherProduitParId(idP).subscribe({
@@ -109,7 +112,7 @@ export class ProduitsComponent implements OnInit {
   }
   
   
-
+/*
   // Méthode pour filtrer par désignation
   filtrerParDesignation(): void {
     if (!this.designationFiltres) {
@@ -118,9 +121,9 @@ export class ProduitsComponent implements OnInit {
       this.produitsFiltres = this.produits.filter((p) =>p.designation && p.designation.toLowerCase().includes(this.designationFiltres.toLowerCase()));
     }
     console.log('Produits filtrés par désignation :', this.produitsFiltres);
-  }
+  }*/
 
-
+/*
   // Filtrer les produits par catégorie
   filtrerProduitsCat(): void {
     
@@ -132,7 +135,8 @@ export class ProduitsComponent implements OnInit {
       this.produitsFiltres = this.produits; // Afficher tous les produits si aucune catégorie n'est sélectionnée
     }
   }
-
+*/
+/*
   filtrerProduitsPrix(): void {
     this.produitsFiltres = this.produits.filter((p) => {
       // Filtre par catégorie
@@ -153,14 +157,15 @@ export class ProduitsComponent implements OnInit {
   }
 
 
-  
+  */
 
   // Méthode pour éditer un produit
   EditProduit(produit: Produit): void {
     this.etatedit = true;
     this.produitCourant = { ...produit };
-  }
-
+    this.produitCourant.categorie = this.categories.find(c => c.id === produit.categorie?.id) || undefined;
+    } 
+  
   // Ajouter un nouveau produit
   ajouterProduit(form: NgForm): void {
     const nouveauProduit = form.value;
@@ -235,6 +240,8 @@ export class ProduitsComponent implements OnInit {
       next: (produitModifie) => {
         const produit = produitModifie as Produit;
         console.log('Succès PUT : Produit mis à jour', produit);
+        console.log('produitCourant.categorie', this.produitCourant.categorie);
+        
         const index = this.produits.findIndex((p) => p.id === produit.id);
         if (index !== -1) {
           this.produits[index] = produit;
@@ -252,4 +259,6 @@ export class ProduitsComponent implements OnInit {
     alert('Erreur : ID du produit manquant.');
   }
 }
+
+
 }

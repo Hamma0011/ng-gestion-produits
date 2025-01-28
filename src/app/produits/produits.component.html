@@ -20,9 +20,9 @@
     <tr>
       <th>Categorie :</th>
       <th>
-        <select  [(ngModel)]="produitCourant.categorie" name="categorie">
-          <option *ngFor="let categorie of categories" [ngValue]="categorie">
-            {{ categorie.libelle }}
+        <select [(ngModel)]="produitCourant.categorie" name="categorie">
+          <option *ngFor="let c of categories" [ngValue]="c">
+            {{ c.libelle }}
           </option>
         </select>
       </th>
